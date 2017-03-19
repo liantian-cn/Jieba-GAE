@@ -9,148 +9,231 @@
 
 </head>
 <body>
+
+
 <div class="header">
-    <div class="page">
-        <div class="header-main">
-            <div id="headerlogo">
-                <a href="/">Jieba-GAE</a>
-            </div>
-            <div id="headermenu">
-                <ul>
-                    <li><a href="https://liantian.me/" title="ToolBox">LIANTIAN&#39;S LOG</a></li>
-                </ul>
-            </div>
+    <div class="header-main">
+        <div class="headerlogo">
+            <a href="/">Jieba-GAE</a>
         </div>
-        <div class="content">
-            <h1>Cut</h1>
+        <div class="headermenu">
             <ul>
-                <li>
-                    URL : <a href="{{ url_for('cut') }}">/cut</a>
-                </li>
-                <li>
-                    Method : GET or POST
-                </li>
-                <li>
-                    Parameter : text(required) ,cut_all(default=0), hmm(default=1)
-                </li>
-                <li>
-                    <a href="https://github.com/fxsjy/jieba#1-分词">Manual:分词</a>
-                </li>
+                <li><a href="https://liantian.me/" title="ToolBox">LIANTIAN&#39;S LOG</a></li>
             </ul>
-
-
-
-            <form action="{{ url_for("cut") }}" method="post">
-                <p>data:<textarea rows="10" cols="30" name="text" maxlength="948"></textarea></p>
-                <p>
-                    Mode:
-                    <select name="cut_all">
-                        <option value="0" selected="selected">False</option>
-                        <option value="1">True</option>
-                    </select>
-                </p>
-                <p>
-                    HMM:
-                    <select name="hmm">
-                        <option value="0" selected="selected">False</option>
-                        <option value="1">True</option>
-                    </select>
-                </p>
-
-
-                <input type="submit" value="Submit"/>
-            </form>
-
-
-                        <h1>Keyword Extraction(TF-IDF)</h1>
-            <ul>
-                <li>
-                    URL : <a href="{{ url_for('analyse_tfidf') }}">/analyse_tfidf</a>
-                </li>
-                <li>
-                    Method : GET or POST
-                </li>
-                <li>
-                    Parameter : text(required) ,topK(default=10), withWeight(default=0)
-                </li>
-                <li>
-                    <a href="https://github.com/fxsjy/jieba#基于-tf-idf-算法的关键词抽取">Manual:基于-tf-idf-算法的关键词抽取</a>
-                </li>
-            </ul>
-
-
-
-            <form action="{{ url_for("analyse_tfidf") }}" method="post">
-                <p>data:<textarea rows="10" cols="30" name="text" maxlength="948"></textarea></p>
-                <p>
-                    topK:
-                    <select name="topK">
-                        {% for i in range(1,60) %}
-                            <option value="{{ i }}" {% if i==10 %} selected="selected" {% endif %}>{{ i }}</option>
-                        {% endfor %}
-                    </select>
-                </p>
-                <p>
-                    withWeight:
-                    <select name="withWeight">
-                        <option value="0" >False</option>
-                        <option value="1" selected="selected">True</option>
-                    </select>
-                </p>
-
-
-                <input type="submit" value="Submit"/>
-            </form>
-
-
-
-
-                                <h1>Keyword Extraction(TextRank)</h1>
-            <ul>
-                <li>
-                    URL : <a href="{{ url_for('analyse_textrank') }}">/analyse_textrank</a>
-                </li>
-                <li>
-                    Method : GET or POST
-                </li>
-                                <li>
-                    Parameter : text(required) ,topK(default=10), withWeight(default=0)
-                </li>
-                <li>
-                    <a href="https://github.com/fxsjy/jieba#基于-textrank-算法的关键词抽取">Manual:基于-textrank-算法的关键词抽取</a>
-                </li>
-            </ul>
-
-
-
-            <form action="{{ url_for("analyse_textrank") }}" method="post">
-                <p>data:<textarea rows="10" cols="30" name="text" maxlength="948"></textarea></p>
-                <p>
-                    topK:
-                    <select name="topK">
-                        {% for i in range(1,60) %}
-                            <option value="{{ i }}" {% if i==10 %} selected="selected" {% endif %}>{{ i }}</option>
-                        {% endfor %}
-                    </select>
-                </p>
-                <p>
-                    withWeight:
-                    <select name="withWeight">
-                        <option value="0" >False</option>
-                        <option value="1" selected="selected">True</option>
-                    </select>
-                </p>
-
-
-                <input type="submit" value="Submit"/>
-            </form>
-
-        </div>
-        <div class="footer">
-            <p><a href="https://github.com/liantian-cn/jieba-gae">Source Code</a></p>
-            <p> &copy; 2010-2017 liantian.me, All Rights Reserved.</p>
         </div>
     </div>
+</div>
+
+
+<div class="content post entry">
+    <h1>分词</h1>
+    <ul>
+        <li>
+            URL : <a href="{{ url_for('cut') }}">/cut</a>
+        </li>
+        <li>
+            Method : GET or POST
+        </li>
+        <li>
+            详细信息:<a href="https://github.com/fxsjy/jieba#1-分词">分词</a>
+        </li>
+    </ul>
+
+    <table>
+        <thead>
+        <tr>
+            <th>参数</th>
+            <th>必要 or 可选</th>
+            <th>说明</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>text</td>
+            <td>必要</td>
+            <td>需要分词的字符串。
+            </td>
+        </tr>
+        <tr>
+            <td>cut_all</td>
+            <td>可选</td>
+            <td>用来控制是否采用全模式。<br/>
+                可选值: [0,1]<br/>
+                默认值: 0
+            </td>
+        </tr>
+        <tr>
+            <td>hmm</td>
+            <td>可选</td>
+            <td>用来控制是否使用 HMM 模型。<br/>
+                可选值: [0,1]<br/>
+                默认值: 1
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Test:</h4>
+    <form action="{{ url_for("cut") }}" method="post">
+        <p>data:<textarea rows="10" cols="30" name="text" style="width: 100%"></textarea></p>
+        <p>
+            Mode:
+            <select name="cut_all">
+                <option value="0" selected="selected">False</option>
+                <option value="1">True</option>
+            </select>
+        </p>
+        <p>
+            HMM:
+            <select name="hmm">
+                <option value="0" selected="selected">False</option>
+                <option value="1">True</option>
+            </select>
+        </p>
+
+
+        <input type="submit" value="Submit"/>
+    </form>
+
+    <hr>
+    <h1>基于 TF-IDF 算法的关键词抽取</h1>
+    <ul>
+        <li>
+            URL : <a href="{{ url_for('analyse_tfidf') }}">/analyse_tfidf</a>
+        </li>
+        <li>
+            Method : GET or POST
+        </li>
+        <li>
+            详细信息:<a href="https://github.com/fxsjy/jieba#基于-tf-idf-算法的关键词抽取">基于-tf-idf-算法的关键词抽取</a>
+        </li>
+    </ul>
+    <table>
+        <thead>
+        <tr>
+            <th>参数</th>
+            <th>必要 or 可选</th>
+            <th>说明</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>text</td>
+            <td>必要</td>
+            <td>需要分词的字符串。
+            </td>
+        </tr>
+        <tr>
+            <td>topK</td>
+            <td>可选</td>
+            <td>为返回几个 TF/IDF 权重最大的关键词。<br/>
+                默认值: 20
+            </td>
+        </tr>
+        <tr>
+            <td>withWeight</td>
+            <td>可选</td>
+            <td>为是否一并返回关键词权重值。<br/>
+                可选值: [0,1]<br/>
+                默认值: 0
+        </tr>
+        </tbody>
+    </table>
+    <h4>Test:</h4>
+    <form action="{{ url_for("analyse_tfidf") }}" method="post">
+        <p>data:<textarea rows="10" cols="30" name="text" style="width: 100%"></textarea></p>
+        <p>
+            topK:
+            <select name="topK">
+                {% for i in range(1,60) %}
+                    <option value="{{ i }}" {% if i==10 %} selected="selected" {% endif %}>{{ i }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            withWeight:
+            <select name="withWeight">
+                <option value="0">False</option>
+                <option value="1" selected="selected">True</option>
+            </select>
+        </p>
+
+
+        <input type="submit" value="Submit"/>
+    </form>
+
+    <hr>
+    <h1>基于 TextRank 算法的关键词抽取</h1>
+    <ul>
+        <li>
+            URL : <a href="{{ url_for('analyse_textrank') }}">/analyse_textrank</a>
+        </li>
+        <li>
+            Method : GET or POST
+        </li>
+        <li>
+            详细信息:<a href="https://github.com/fxsjy/jieba#基于-textrank-算法的关键词抽取">基于-textrank-算法的关键词抽取</a>
+        </li>
+    </ul>
+
+    <table>
+        <thead>
+        <tr>
+            <th>参数</th>
+            <th>必要 or 可选</th>
+            <th>说明</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>text</td>
+            <td>必要</td>
+            <td>需要分词的字符串。
+            </td>
+        </tr>
+        <tr>
+            <td>topK</td>
+            <td>可选</td>
+            <td>为返回几个 TF/IDF 权重最大的关键词。<br/>
+                默认值: 20
+            </td>
+        </tr>
+        <tr>
+            <td>withWeight</td>
+            <td>可选</td>
+            <td>为是否一并返回关键词权重值。<br/>
+                可选值: [0,1]<br/>
+                默认值: 0
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Test:</h4>
+    <form action="{{ url_for("analyse_textrank") }}" method="post">
+        <p>data:<textarea rows="10" cols="30" name="text" style="width: 100%"></textarea></p>
+        <p>
+            topK:
+            <select name="topK">
+                {% for i in range(1,60) %}
+                    <option value="{{ i }}" {% if i==10 %} selected="selected" {% endif %}>{{ i }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            withWeight:
+            <select name="withWeight">
+                <option value="0">False</option>
+                <option value="1" selected="selected">True</option>
+            </select>
+        </p>
+
+
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
+
+<div class="footer">
+            <p><a href="https://github.com/liantian-cn/jieba-gae">Source Code</a></p>
+            <p> &copy; 2010-2017 liantian.me, All Rights Reserved.</p>
 </div>
 </body>
 </html>

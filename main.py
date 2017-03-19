@@ -61,7 +61,7 @@ def cut():
         cut_all = bool(int(cut_all))
     else:
         cut_all = False
-    hmm = request.values.get("hmm", default="0")
+    hmm = request.values.get("hmm", default="1")
     if hmm in ['0', '1']:
         hmm = bool(int(cut_all))
     else:
