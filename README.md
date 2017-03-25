@@ -1,4 +1,4 @@
-# jieba-gae
+# jieba-GAE
 
 [Jieba](https://github.com/fxsjy/jieba) on Google App Engine
 
@@ -12,14 +12,14 @@ GAE有几个限制：
 
 主要是针对这几个限制进行的处理。
 
-不介意造访：[在GAE上使用Jieba分词遇到的问题和处理](https://liantian.me/article/use_jieba_on_google_appengine/)
+处理后响应时间，免费配额的cpu，可以处理相当数量的请求。
+![](https://github.com/liantian-cn/jieba-gae/raw/master/snipaste_20170319_172602.png)
 
+处理后内存占用，刚好落在免费配额限制内。
+![](https://github.com/liantian-cn/jieba-gae/raw/master/snipaste_20170319_172713.png)
 
-
-实例响应时间，免费配额的cpu，可以处理相当数量的请求。
-
-
-实例内存占用，刚好落在免费配额限制内。
+**不介意造访：[LIANTIAN'S LOG
+](https://liantian.me/article/use_jieba_on_google_appengine/)**
 
 
 ### TemporaryFile 的问题处理 ###
