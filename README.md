@@ -2,6 +2,8 @@
 
 [Jieba](https://github.com/fxsjy/jieba) on Google App Engine
 
+![Powered by Google App Engine](https://cloud.google.com/appengine/images/appengine-silver-120x30.gif)
+
 demo : [https://jieba.liantian.me](https://jieba.liantian.me)
 
 
